@@ -18,7 +18,7 @@ app.get('/', (req, res) => {
 app.listen(PORT, () => {
   console.log(`\n🚀 AI Share Market Advisor running at http://localhost:${PORT}`);
   console.log(`📊 Indian Stock Market Analysis powered by Claude AI\n`);
-  if (!process.env.ANTHROPIC_API_KEY) {
-    console.warn('⚠️  ANTHROPIC_API_KEY not set — AI Advisor feature will be disabled.\n');
+  if (!process.env.OPENAI_API_KEY) {
+    console.warn('⚠️  OPENAI_API_KEY not set — AI Advisor feature will be disabled.\n');
   }
 });

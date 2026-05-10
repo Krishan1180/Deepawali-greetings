@@ -1,9 +1,13 @@
 const express = require('express');
 const router = express.Router();
-const Anthropic = require('@anthropic-ai/sdk');
+const OpenAI = require('openai');
 const db = require('../db/database');
 
-const anthropic = new Anthropic();
+let _openai = null;
+function getOpenAI() {
+  if (!_openai) _openai = new OpenAI();
+  return _openai;
+}
 
 // ============= MOCK MARKET DATA =============
 
@@ -257,8 +261,8 @@ router.delete('/portfolio/:id', (req, res) => {
 // ============= AI CHAT (STREAMING) =============
 
 router.post('/chat', async (req, res) => {
-  if (!process.env.ANTHROPIC_API_KEY) {
-    return res.status(400).json({ error: 'ANTHROPIC_API_KEY is not configured. Please set the environment variable to enable the AI Advisor.' });
+  if (!process.env.OPENAI_API_KEY) {
+    return res.status(400).json({ error: 'OPENAI_API_KEY is not configured. Please set the environment variable to enable the AI Advisor.' });
   }
 
   const { messages } = req.body;
@@ -272,22 +276,25 @@ router.post('/chat', async (req, res) => {
   res.flushHeaders();
 
   try {
-    const stream = anthropic.messages.stream({
-      model: 'claude-opus-4-7',
+    const stream = await getOpenAI().chat.completions.create({
+      model: 'gpt-4o',
       max_tokens: 4096,
-      thinking: { type: 'adaptive' },
-      system: buildSystemPrompt(),
-      messages: messages.map(m => ({ role: m.role, content: m.content })),
+      stream: true,
+      messages: [
+        { role: 'system', content: buildSystemPrompt() },
+        ...messages.map(m => ({ role: m.role, content: m.content })),
+      ],
     });
 
-    for await (const event of stream) {
-      if (event.type === 'content_block_delta' && event.delta.type === 'text_delta') {
-        res.write(`data: ${JSON.stringify({ type: 'text', text: event.delta.text })}\n\n`);
+    for await (const chunk of stream) {
+      const text = chunk.choices[0]?.delta?.content || '';
+      if (text) {
+        res.write(`data: ${JSON.stringify({ type: 'text', text })}\n\n`);
       }
     }
     res.write(`data: ${JSON.stringify({ type: 'done' })}\n\n`);
   } catch (err) {
-    console.error('Claude API error:', err.message);
+    console.error('OpenAI API error:', err.message);
     res.write(`data: ${JSON.stringify({ type: 'error', message: err.message })}\n\n`);
   } finally {
     res.end();
@@ -296,8 +303,8 @@ router.post('/chat', async (req, res) => {
 
 // AI Portfolio Analysis
 router.post('/chat/portfolio-analysis', async (req, res) => {
-  if (!process.env.ANTHROPIC_API_KEY) {
-    return res.status(400).json({ error: 'ANTHROPIC_API_KEY is not configured.' });
+  if (!process.env.OPENAI_API_KEY) {
+    return res.status(400).json({ error: 'OPENAI_API_KEY is not configured.' });
   }
 
   const holdings = db.prepare('SELECT * FROM portfolio').all();

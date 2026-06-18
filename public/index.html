@@ -3,165 +3,288 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>MusicWave — Music Streaming</title>
+  <title>AI Share Market Advisor — India</title>
   <link rel="stylesheet" href="/css/style.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
 </head>
 <body>
   <div id="app">
-    <!-- Sidebar -->
-    <aside id="sidebar">
-      <div class="sidebar-logo">
-        <svg viewBox="0 0 40 40" width="32" height="32" fill="none">
-          <circle cx="20" cy="20" r="20" fill="#1ed760"/>
-          <path d="M28 18.5c-5-3-13.2-3.2-18-1.8a1 1 0 01-.5-1.9c5.4-1.6 14.4-1.3 20 2.1a1 1 0 01-1.5 1.6zm-.7 4.3c-4.2-2.5-10.5-3.3-15.4-1.8a.85.85 0 01-.5-1.6c5.6-1.7 12.5-.9 17.3 2.1a.85.85 0 01-1.4 1.3zm-1.5 4.1c-3.3-2-8.5-2.5-12.5-1.4a.7.7 0 01-.4-1.3c4.5-1.3 10.2-.7 14 1.6a.7.7 0 01-1.1 1.1z" fill="#000"/>
-        </svg>
-        <span>MusicWave</span>
-      </div>
 
-      <nav class="sidebar-nav">
-        <a href="#" class="nav-item active" data-view="home">
-          <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M12.5 3.247a1 1 0 00-1 0L4 7.577V20h4.5v-6a1 1 0 011-1h5a1 1 0 011 1v6H20V7.577l-7.5-4.33zm-2-1.732a3 3 0 013 0l7.5 4.33a2 2 0 011 1.732V21a1 1 0 01-1 1h-6.5a1 1 0 01-1-1v-6h-3v6a1 1 0 01-1 1H3a1 1 0 01-1-1V7.577a2 2 0 011-1.732l7.5-4.33z"/></svg>
-          <span>Home</span>
-        </a>
-        <a href="#" class="nav-item" data-view="search">
-          <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M10.533 1.279c-5.18 0-9.407 4.14-9.407 9.279s4.226 9.279 9.407 9.279c2.234 0 4.29-.77 5.907-2.058l4.353 4.353a1 1 0 101.414-1.414l-4.344-4.344a9.157 9.157 0 002.077-5.816c0-5.14-4.226-9.28-9.407-9.28zm-7.407 9.28c0-4.006 3.302-7.28 7.407-7.28s7.407 3.274 7.407 7.28-3.302 7.279-7.407 7.279-7.407-3.273-7.407-7.28z"/></svg>
-          <span>Search</span>
-        </a>
-      </nav>
-
-      <div class="sidebar-library">
-        <div class="library-header">
-          <div class="library-title">
-            <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor"><path d="M3 22a1 1 0 01-1-1V3a1 1 0 012 0v18a1 1 0 01-1 1zM15.5 2.134A1 1 0 0114 3v18a1 1 0 001 1h2a1 1 0 001-1V6.464a1 1 0 00-.5-.866l-2-1.33zM9 2a1 1 0 00-1 1v18a1 1 0 001 1h2a1 1 0 001-1V3a1 1 0 00-1-1H9z"/></svg>
-            <span>Your Library</span>
+    <!-- ===== HEADER ===== -->
+    <header id="appHeader">
+      <div class="header-left">
+        <div class="logo">
+          <span class="logo-icon">📈</span>
+          <div class="logo-text">
+            <span class="logo-name">AI Advisor</span>
+            <span class="logo-sub">Indian Share Market</span>
           </div>
-          <button class="btn-icon" id="createPlaylistBtn" title="Create Playlist">
-            <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M13 3a1 1 0 10-2 0v8H3a1 1 0 100 2h8v8a1 1 0 102 0v-8h8a1 1 0 100-2h-8V3z"/></svg>
-          </button>
-        </div>
-
-        <div class="library-list" id="libraryList">
-          <div class="library-item" data-view="liked">
-            <div class="liked-songs-cover">
-              <svg viewBox="0 0 24 24" width="16" height="16" fill="#fff"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-            </div>
-            <div class="library-item-info">
-              <span class="library-item-name">Liked Songs</span>
-              <span class="library-item-meta">Playlist</span>
-            </div>
-          </div>
-          <!-- Playlists loaded dynamically -->
         </div>
       </div>
-    </aside>
 
-    <!-- Main Content -->
+      <div class="ticker-bar" id="tickerBar">
+        <div class="ticker-items" id="tickerItems">
+          <!-- populated by JS -->
+        </div>
+      </div>
+
+      <div class="header-right">
+        <div id="marketStatusBadge" class="market-badge">
+          <span class="market-dot"></span>
+          <span class="market-label">Loading...</span>
+        </div>
+        <div class="market-time" id="marketTime"></div>
+      </div>
+    </header>
+
+    <!-- ===== NAVIGATION ===== -->
+    <nav id="appNav">
+      <button class="nav-btn active" data-tab="dashboard">
+        <span class="nav-icon">🏠</span> Dashboard
+      </button>
+      <button class="nav-btn" data-tab="stocks">
+        <span class="nav-icon">📊</span> Stocks
+      </button>
+      <button class="nav-btn" data-tab="portfolio">
+        <span class="nav-icon">💼</span> Portfolio
+      </button>
+      <button class="nav-btn" data-tab="ai">
+        <span class="nav-icon">🤖</span> AI Advisor
+      </button>
+      <button class="nav-btn" data-tab="news">
+        <span class="nav-icon">📰</span> News
+      </button>
+    </nav>
+
+    <!-- ===== MAIN CONTENT ===== -->
     <main id="mainContent">
-      <header id="topBar">
-        <div class="nav-arrows">
-          <button class="btn-icon" id="backBtn" disabled>
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M15.957 2.793a1 1 0 010 1.414L8.164 12l7.793 7.793a1 1 0 11-1.414 1.414L5.336 12l9.207-9.207a1 1 0 011.414 0z"/></svg>
-          </button>
-          <button class="btn-icon" id="forwardBtn" disabled>
-            <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M8.043 2.793a1 1 0 000 1.414L15.836 12l-7.793 7.793a1 1 0 101.414 1.414L18.664 12 9.457 2.793a1 1 0 00-1.414 0z"/></svg>
-          </button>
-        </div>
-        <div id="searchBar" class="hidden">
-          <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M10.533 1.279c-5.18 0-9.407 4.14-9.407 9.279s4.226 9.279 9.407 9.279c2.234 0 4.29-.77 5.907-2.058l4.353 4.353a1 1 0 101.414-1.414l-4.344-4.344a9.157 9.157 0 002.077-5.816c0-5.14-4.226-9.28-9.407-9.28zm-7.407 9.28c0-4.006 3.302-7.28 7.407-7.28s7.407 3.274 7.407 7.28-3.302 7.279-7.407 7.279-7.407-3.273-7.407-7.28z"/></svg>
-          <input type="text" id="searchInput" placeholder="What do you want to listen to?" autocomplete="off">
-        </div>
-      </header>
 
-      <div id="contentArea">
-        <!-- Dynamic content loaded here -->
-      </div>
+      <!-- ── DASHBOARD TAB ── -->
+      <section id="tab-dashboard" class="tab-panel active">
+        <div class="section-header">
+          <h2>Market Overview</h2>
+          <span class="update-time" id="lastUpdated">Updating...</span>
+        </div>
+
+        <!-- Index Cards -->
+        <div class="index-grid" id="indexGrid">
+          <!-- populated by JS -->
+        </div>
+
+        <!-- Charts + Gainers/Losers -->
+        <div class="dashboard-grid">
+          <div class="card chart-card">
+            <div class="card-header">
+              <h3>NIFTY 50 — 30 Day</h3>
+            </div>
+            <canvas id="niftyChart" height="200"></canvas>
+          </div>
+
+          <div class="card">
+            <div class="card-header"><h3>🟢 Top Gainers</h3></div>
+            <div id="gainersTable" class="mini-table"></div>
+          </div>
+
+          <div class="card">
+            <div class="card-header"><h3>🔴 Top Losers</h3></div>
+            <div id="losersTable" class="mini-table"></div>
+          </div>
+        </div>
+
+        <!-- Sector Performance -->
+        <div class="card">
+          <div class="card-header"><h3>Sector Performance Today</h3></div>
+          <canvas id="sectorChart" height="140"></canvas>
+        </div>
+      </section>
+
+      <!-- ── STOCKS TAB ── -->
+      <section id="tab-stocks" class="tab-panel">
+        <div class="section-header">
+          <h2>Stock Screener</h2>
+        </div>
+
+        <div class="search-bar-row">
+          <div class="search-wrap">
+            <span class="search-icon">🔍</span>
+            <input type="text" id="stockSearch" placeholder="Search by name or symbol (e.g. RELIANCE, TCS)" autocomplete="off">
+          </div>
+          <div class="filter-btns">
+            <button class="filter-btn active" data-sort="">All</button>
+            <button class="filter-btn" data-sort="gainers">Gainers</button>
+            <button class="filter-btn" data-sort="losers">Losers</button>
+            <button class="filter-btn" data-sort="volume">High Volume</button>
+          </div>
+        </div>
+
+        <div class="card table-card">
+          <table class="stock-table">
+            <thead>
+              <tr>
+                <th>Symbol</th>
+                <th>Company</th>
+                <th>Sector</th>
+                <th class="right">Price (₹)</th>
+                <th class="right">Change</th>
+                <th class="right">Volume</th>
+                <th class="right">Mkt Cap</th>
+                <th class="right">P/E</th>
+                <th class="center">Action</th>
+              </tr>
+            </thead>
+            <tbody id="stockTableBody">
+              <tr><td colspan="9" class="loading-cell">Loading stocks...</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Stock Detail Panel -->
+        <div id="stockDetailPanel" class="card hidden">
+          <button class="close-panel" id="closeStockDetail">✕ Close</button>
+          <div id="stockDetailContent"></div>
+        </div>
+      </section>
+
+      <!-- ── PORTFOLIO TAB ── -->
+      <section id="tab-portfolio" class="tab-panel">
+        <div class="section-header">
+          <h2>My Portfolio</h2>
+          <button class="btn-primary" id="addStockBtn">+ Add Stock</button>
+        </div>
+
+        <!-- Summary Cards -->
+        <div class="portfolio-summary" id="portfolioSummary">
+          <div class="summary-card">
+            <div class="summary-label">Total Invested</div>
+            <div class="summary-value" id="totalInvested">₹0</div>
+          </div>
+          <div class="summary-card">
+            <div class="summary-label">Current Value</div>
+            <div class="summary-value" id="currentValue">₹0</div>
+          </div>
+          <div class="summary-card">
+            <div class="summary-label">Total P&amp;L</div>
+            <div class="summary-value" id="totalPnl">₹0</div>
+          </div>
+          <div class="summary-card">
+            <div class="summary-label">Returns</div>
+            <div class="summary-value" id="totalPnlPct">0%</div>
+          </div>
+        </div>
+
+        <!-- Add Stock Form -->
+        <div id="addStockForm" class="card hidden">
+          <h3>Add Stock to Portfolio</h3>
+          <div class="form-grid">
+            <div class="form-group">
+              <label>Stock Symbol</label>
+              <input type="text" id="newSymbol" placeholder="e.g. RELIANCE" list="symbolList">
+              <datalist id="symbolList"></datalist>
+            </div>
+            <div class="form-group">
+              <label>Buy Price (₹)</label>
+              <input type="number" id="newBuyPrice" placeholder="e.g. 2800" step="0.01">
+            </div>
+            <div class="form-group">
+              <label>Quantity (Shares)</label>
+              <input type="number" id="newQuantity" placeholder="e.g. 10" min="1">
+            </div>
+            <div class="form-group">
+              <label>Buy Date</label>
+              <input type="date" id="newBuyDate">
+            </div>
+          </div>
+          <div class="form-actions">
+            <button class="btn-secondary" id="cancelAddStock">Cancel</button>
+            <button class="btn-primary" id="confirmAddStock">Add to Portfolio</button>
+          </div>
+        </div>
+
+        <!-- Portfolio Table -->
+        <div class="card table-card">
+          <table class="stock-table">
+            <thead>
+              <tr>
+                <th>Symbol</th>
+                <th>Company</th>
+                <th class="right">Buy Price</th>
+                <th class="right">Qty</th>
+                <th class="right">Current</th>
+                <th class="right">Invested</th>
+                <th class="right">Value</th>
+                <th class="right">P&amp;L</th>
+                <th class="right">Return %</th>
+                <th class="center">Remove</th>
+              </tr>
+            </thead>
+            <tbody id="portfolioTableBody">
+              <tr><td colspan="10" class="loading-cell">Add stocks to track your portfolio.</td></tr>
+            </tbody>
+          </table>
+        </div>
+
+        <div class="portfolio-charts-row" id="portfolioChartsRow">
+          <!-- shown when there are holdings -->
+        </div>
+      </section>
+
+      <!-- ── AI ADVISOR TAB ── -->
+      <section id="tab-ai" class="tab-panel">
+        <div class="ai-layout">
+          <!-- Sidebar: Quick Actions + Market Snapshot -->
+          <div class="ai-sidebar">
+            <div class="card">
+              <div class="card-header"><h3>Quick Analysis</h3></div>
+              <div class="quick-actions">
+                <button class="quick-btn" data-prompt="Give me a comprehensive Indian market summary for today, including key index movements, top gainers, losers, FII/DII flows, and major news affecting the market.">📊 Today's Market Summary</button>
+                <button class="quick-btn" data-prompt="Analyze my portfolio and provide detailed insights on diversification, risk, and recommendations.">💼 Analyse My Portfolio</button>
+                <button class="quick-btn" data-prompt="Which Indian stocks do you recommend buying right now based on fundamentals and current market conditions? Provide 3-5 specific picks with reasoning.">💡 Top Stock Picks</button>
+                <button class="quick-btn" data-prompt="What are the key risks facing Indian markets right now? Include global macro risks, domestic concerns, sector-specific risks, and how investors should position defensively.">⚠️ Market Risk Report</button>
+                <button class="quick-btn" data-prompt="Explain the current RBI monetary policy stance and its impact on Indian equities, especially banking and NBFC stocks.">🏦 RBI Policy Impact</button>
+                <button class="quick-btn" data-prompt="What sectors in the Indian market are best positioned for the next 12 months? Provide a detailed sector rotation strategy.">🔄 Sector Rotation Guide</button>
+              </div>
+            </div>
+            <div class="card ai-disclaimer">
+              <p>⚠️ <strong>Disclaimer:</strong> AI-generated analysis is for educational purposes only. Not SEBI-registered financial advice. Always do your own research (DYOR) before investing.</p>
+            </div>
+          </div>
+
+          <!-- Main Chat Area -->
+          <div class="ai-chat-area">
+            <div class="chat-messages" id="chatMessages">
+              <div class="chat-welcome">
+                <div class="welcome-icon">🤖</div>
+                <h2>AI Share Market Advisor</h2>
+                <p>Powered by <strong>GPT-4o</strong> with deep knowledge of NSE/BSE markets, NIFTY, SENSEX, and 500+ Indian stocks.</p>
+                <p class="welcome-hint">Ask me anything about Indian stocks, market trends, portfolio analysis, or investment strategies!</p>
+              </div>
+            </div>
+
+            <div class="chat-input-area">
+              <textarea id="chatInput" placeholder="Ask about stocks, market trends, portfolio strategy..." rows="1"></textarea>
+              <button class="btn-send" id="sendChatBtn" title="Send">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ── NEWS TAB ── -->
+      <section id="tab-news" class="tab-panel">
+        <div class="section-header">
+          <h2>Market News & Updates</h2>
+          <span class="update-time">Live Feed</span>
+        </div>
+        <div id="newsGrid" class="news-grid">
+          <!-- populated by JS -->
+        </div>
+      </section>
+
     </main>
-  </div>
-
-  <!-- Now Playing Bar -->
-  <div id="nowPlaying" class="hidden">
-    <div class="now-playing-left">
-      <div class="now-playing-cover" id="npCover">
-        <svg viewBox="0 0 80 80" width="56" height="56"><rect width="80" height="80" rx="4" fill="#282828"/><circle cx="40" cy="40" r="16" fill="#3e3e3e"/><circle cx="40" cy="40" r="4" fill="#282828"/></svg>
-      </div>
-      <div class="now-playing-info">
-        <div class="np-title" id="npTitle">Not Playing</div>
-        <div class="np-artist" id="npArtist"></div>
-      </div>
-      <button class="btn-icon np-like" id="npLikeBtn">
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
-      </button>
-    </div>
-
-    <div class="now-playing-center">
-      <div class="player-controls">
-        <button class="btn-icon" id="shuffleBtn" title="Shuffle">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M4.5 6.5l6-4a1 1 0 011 0l6 4a1 1 0 01.5.87V11a1 1 0 01-2 0V8.35L12 5.57 8 8.35V11a1 1 0 01-2 0V7.37a1 1 0 01.5-.87z" transform="translate(0,2)"/><path d="M19.44 4.956l-3.7 3.7a.8.8 0 001.13 1.132l3.7-3.7a.8.8 0 00-1.13-1.132zm-3.7 10.512l3.7 3.7a.8.8 0 001.13-1.132l-3.7-3.7a.8.8 0 00-1.13 1.132zM3.36 6.356l17.28 11.288a.8.8 0 00.87-1.344L4.23 5.012a.8.8 0 10-.87 1.344z"/></svg>
-        </button>
-        <button class="btn-icon" id="prevBtn" title="Previous">
-          <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M6 3a1 1 0 012 0v7.27l8.44-5.63A1 1 0 0118 5.54v12.92a1 1 0 01-1.56.83L8 13.66V21a1 1 0 01-2 0V3z"/></svg>
-        </button>
-        <button class="btn-play" id="playPauseBtn" title="Play">
-          <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" id="playIcon"><path d="M8 5.14v13.72a1 1 0 001.5.86l11.24-6.86a1 1 0 000-1.72L9.5 4.28a1 1 0 00-1.5.86z"/></svg>
-          <svg viewBox="0 0 24 24" width="24" height="24" fill="currentColor" id="pauseIcon" class="hidden"><path d="M6 4h4v16H6V4zm8 0h4v16h-4V4z"/></svg>
-        </button>
-        <button class="btn-icon" id="nextBtn" title="Next">
-          <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor"><path d="M18 3a1 1 0 00-2 0v7.27L7.56 4.64A1 1 0 006 5.54v12.92a1 1 0 001.56.83L16 13.66V21a1 1 0 002 0V3z"/></svg>
-        </button>
-        <button class="btn-icon" id="repeatBtn" title="Repeat">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M17 1l4 4-4 4V6H7a3 3 0 00-3 3v1a1 1 0 01-2 0V9a5 5 0 015-5h10V1zM7 23l-4-4 4-4v3h10a3 3 0 003-3v-1a1 1 0 012 0v1a5 5 0 01-5 5H7v3z"/></svg>
-        </button>
-      </div>
-      <div class="progress-container">
-        <span class="time-current" id="timeCurrent">0:00</span>
-        <div class="progress-bar" id="progressBar">
-          <div class="progress-fill" id="progressFill"></div>
-          <div class="progress-handle" id="progressHandle"></div>
-        </div>
-        <span class="time-total" id="timeTotal">0:00</span>
-      </div>
-    </div>
-
-    <div class="now-playing-right">
-      <button class="btn-icon" id="queueBtn" title="Queue">
-        <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor"><path d="M3 6h18v2H3V6zm0 5h18v2H3v-2zm0 5h12v2H3v-2zm17-1v5a1 1 0 01-2 0v-5h-2v-2h5v2h-1z"/></svg>
-      </button>
-      <div class="volume-control">
-        <button class="btn-icon" id="volumeBtn" title="Volume">
-          <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" id="volumeIcon"><path d="M11 3.998a1 1 0 00-1.6-.8L5.17 6.5H3a1 1 0 00-1 1v5a1 1 0 001 1h2.17l4.23 3.3a1 1 0 001.6-.8V3.998zM16.27 8.05a4.5 4.5 0 010 7.9 1 1 0 01-.54-1.92 2.5 2.5 0 000-4.06 1 1 0 01.54-1.92zm1.97-3.58a9 9 0 010 15.06 1 1 0 01-1.07-1.69 7 7 0 000-11.68 1 1 0 011.07-1.69z"/></svg>
-        </button>
-        <div class="volume-bar" id="volumeBar">
-          <div class="volume-fill" id="volumeFill"></div>
-          <div class="volume-handle" id="volumeHandle"></div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Create Playlist Modal -->
-  <div id="createPlaylistModal" class="modal hidden">
-    <div class="modal-content">
-      <h2>Create Playlist</h2>
-      <input type="text" id="playlistNameInput" placeholder="Playlist name" maxlength="100">
-      <textarea id="playlistDescInput" placeholder="Add a description (optional)" maxlength="300" rows="3"></textarea>
-      <div class="modal-actions">
-        <button class="btn-secondary" id="cancelPlaylistBtn">Cancel</button>
-        <button class="btn-primary" id="savePlaylistBtn">Create</button>
-      </div>
-    </div>
-  </div>
-
-  <!-- Queue Panel -->
-  <div id="queuePanel" class="hidden">
-    <div class="queue-header">
-      <h3>Queue</h3>
-      <button class="btn-icon" id="closeQueueBtn">
-        <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor"><path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg>
-      </button>
-    </div>
-    <div class="queue-content" id="queueContent"></div>
   </div>
 
   <script src="/js/app.js"></script>

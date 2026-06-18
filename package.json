@@ -1,15 +1,17 @@
 {
-  "name": "musicwave",
+  "name": "ai-share-market-advisor",
   "version": "1.0.0",
-  "description": "A music streaming application inspired by Spotify",
+  "description": "AI-powered Indian Share Market Advisor with Claude AI",
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
     "dev": "node server.js"
   },
   "dependencies": {
+    "@anthropic-ai/sdk": "^0.40.0",
+    "better-sqlite3": "^9.6.0",
     "express": "^4.18.2",
-    "better-sqlite3": "^9.4.3",
+    "openai": "^6.37.0",
     "uuid": "^9.0.0"
   }
 }
